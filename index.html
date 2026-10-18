@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#7fd3ff">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="description" content="Zero to Exit: a tiny idle game about growing a business from nothing.">
+  <title>Zero to Exit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="sky" aria-hidden="true">
+    <span class="cloud c1"></span><span class="cloud c2"></span><span class="cloud c3"></span>
+  </div>
+
+  <div id="app" class="app">
+    <header id="topbar" class="topbar">
+      <div class="topbar-row">
+        <div class="day-pill" title="Day">
+          <span class="day-label">Day</span>
+          <span id="tb-day" class="day-num">1</span>
+          <span class="day-progress"><i id="tb-dayprog"></i></span>
+        </div>
+        <button id="tb-level" class="level-badge" data-action="tab" data-tab="numbers" aria-label="Level">
+          <span id="tb-level-emoji">🔧</span><span id="tb-level-name">Garage</span>
+        </button>
+        <div id="tb-cash-wrap" class="cash-pill">
+          <span class="cash-coin" aria-hidden="true">💵</span><span id="tb-cash">$0</span>
+        </div>
+      </div>
+      <div class="topbar-row">
+        <div class="energy" title="Energy (the Daily Grind)">
+          <span class="energy-icon" aria-hidden="true">⚡</span>
+          <div class="energy-bar"><i id="tb-energy-fill"></i><span id="tb-energy-text">100/100</span></div>
+        </div>
+        <div class="speed" role="group" aria-label="Game speed">
+          <button class="speed-btn" data-action="speed" data-speed="0" aria-label="Pause">⏸</button>
+          <button class="speed-btn" data-action="speed" data-speed="1" aria-label="Normal speed">1×</button>
+          <button class="speed-btn" data-action="speed" data-speed="2" aria-label="Double speed">2×</button>
+          <button class="speed-btn" data-action="speed" data-speed="4" aria-label="Quad speed">4×</button>
+          <button class="speed-btn" data-action="speed" data-speed="8" aria-label="Eight times speed" hidden>8×</button>
+          <button id="speed-cycle" class="speed-btn speed-cycle" data-action="speed-cycle" aria-label="Change speed">1×</button>
+        </div>
+        <button id="tb-sound" class="icon-btn" data-action="sound" aria-label="Toggle sound">🔊</button>
+        <button class="icon-btn" data-action="settings" aria-label="Settings">⚙️</button>
+      </div>
+    </header>
+
+    <section id="goal-strip" class="goal-strip">
+      <button id="owl-btn" class="owl-btn" data-action="owl" aria-label="Ask the coach for a hint"></button>
+      <div class="goal-body">
+        <div class="goal-head">
+          <span id="goal-text" class="goal-text">Loading…</span>
+          <span class="goal-right"><span id="goal-hc" class="hc-chip" title="Headcount" hidden>👥 1</span><span id="goal-pct" class="goal-pct">0%</span></span>
+        </div>
+        <div class="goal-bar"><i id="goal-fill"></i><b id="goal-best" class="goal-best" hidden></b></div>
+        <div id="goal-items" class="goal-items"></div>
+        <button id="goal-crunch" class="crunch-strip" data-action="crunch-open" hidden></button>
+      </div>
+    </section>
+
+    <main id="main" class="main">
+      <div id="tab-root" class="tab-root"></div>
+    </main>
+
+    <nav id="tabbar" class="tabbar" role="tablist" aria-label="Sections">
+      <button class="tab-btn" role="tab" data-action="tab" data-tab="hustle"><span class="tab-ico">🔥</span><span class="tab-lbl">Hustle</span></button>
+      <button class="tab-btn" role="tab" data-action="tab" data-tab="offer"><span class="tab-ico">⚒️</span><span class="tab-lbl">Offer</span></button>
+      <button class="tab-btn" role="tab" data-action="tab" data-tab="growth"><span class="tab-ico">📣</span><span class="tab-lbl">Growth</span></button>
+      <button class="tab-btn" role="tab" data-action="tab" data-tab="company" hidden><span class="tab-ico">🏢</span><span class="tab-lbl">Company</span><span id="co-badge" class="tab-badge fire" hidden>🔥</span></button>
+      <button class="tab-btn" role="tab" data-action="tab" data-tab="numbers"><span class="tab-ico">📊</span><span class="tab-lbl">Numbers</span></button>
+      <button class="tab-btn" role="tab" data-action="tab" data-tab="notebook"><span class="tab-ico">📓</span><span class="tab-lbl">Notebook</span><span id="nb-badge" class="tab-badge" hidden>NEW</span></button>
+    </nav>
+  </div>
+
+  <div id="coach-bubble" class="coach-bubble" data-action="bubble-next" role="status" aria-live="polite" hidden></div>
+  <div id="toast-root" class="toast-root" aria-live="polite"></div>
+  <div id="modal-root" class="modal-root" hidden></div>
+  <div id="pop-layer" aria-hidden="true"></div>
+  <canvas id="fx-canvas" aria-hidden="true"></canvas>
+
+  <noscript><div class="noscript">Zero to Exit needs JavaScript turned on.</div></noscript>
+
+  <script src="js/content/base.js"></script>
+  <script src="js/content/upgrades.js"></script>
+  <script src="js/content/upgrades-late.js"></script>
+  <script src="js/content/cards.js"></script>
+  <script src="js/content/cards-late-a.js"></script>
+  <script src="js/content/cards-late-b.js"></script>
+  <script src="js/content/notebook.js"></script>
+  <script src="js/content/notebook-late.js"></script>
+  <script src="js/content/systems.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/engine-late.js"></script>
+  <script src="js/fx.js"></script>
+  <script src="js/ui.js"></script>
+</body>
+</html>

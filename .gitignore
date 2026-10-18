@@ -1,0 +1,4 @@
+# build output for the claude.ai artifact (node tools/build-artifact.js)
+dist/
+.DS_Store
+node_modules/
